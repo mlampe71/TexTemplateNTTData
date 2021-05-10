@@ -1,0 +1,136 @@
+\documentclass[a4paper,ngerman,11pt,headheight=18pt,footheight=35pt,headinclude]{scrartcl}
+\usepackage[german]{babel}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{minted}
+\usepackage{cancel, caption, mathtools, subcaption, amsthm}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage {amsmath,amssymb,latexsym} 
+\usepackage{comment}
+\usepackage{datetime}
+\usepackage{tikz}
+\usepackage{everypage}
+\usetikzlibrary{calc}
+\usepackage{tikzpagenodes}
+\usepackage[left=2.5cm,top=3cm,right=3cm,bottom=3cm]{geometry}
+\usepackage[headsepline,headtopline=0pt,headsepline=0pt]{scrlayer-scrpage}
+\usepackage{tocbasic}
+
+\pagestyle{scrheadings}
+
+%<--- NTT Style starts here --->
+
+%<-- Header Start -->
+\AddEverypageHook{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw  let \p1=($(current page.north)-(current page header area.south)$),
+      \n1={veclen(\x1,\y1)} in
+node [inner sep=0,outer sep=0,below right] 
+      at (current page.north west){\includegraphics[width=\paperwidth,height=\n1]{header.png}};
+    \end{tikzpicture}}
+%<-- Header End -->
+
+%<-- Footer Start -->
+\ifoot{\footnotesize{{Titel\\Date\\Page {\thepage} of {\pageref{LastPage}}}}}
+\cfoot{\footnotesize{{confidential\\ \hfill \\\hfill}}}
+\ofoot{\footnotesize{{\hfill\\www.nttdata-solutions.com\\\hfill}}}
+%<-- Footer End -->
+
+\parindent 0pt
+\parskip 6pt
+
+% Redefinition of ToC command to get centered heading
+
+\addto\captionsgerman{% Replace "english" with the language you use
+  \renewcommand{\contentsname}%
+    {Inhaltsverzeichnis}%
+}
+
+\makeatletter
+\renewcommand\tableofcontents{%
+\textbf{\Large\contentsname}\hfill\null\par
+\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}%
+\@starttoc{toc}%
+}
+\setcounter{tocdepth}{3}
+
+\renewcommand{\l@section}{\@dottedtocline{1}{0em}{3.5em}}
+\renewcommand{\l@subsection}{\@dottedtocline{2}{0em}{3.5em}}
+\renewcommand{\l@subsubsection}{\@dottedtocline{3}{0em}{3.5em}}
+
+%\renewcommand{\l@section}{\@dottedtocline{1}{1.5em}{2.6em}}
+%\renewcommand{\l@subsection}{\@dottedtocline{2}{4.0em}{3.6em}}
+%\renewcommand{\l@subsubsection}{\@dottedtocline{3}{7.4em}{4.5em}}
+\makeatother
+
+\fboxrule0pt
+
+%<-- Define Headlines in red - start -->
+\definecolor{rahmen}{RGB}{0,73,114}
+\definecolor{grund}{RGB}{238,241,251}          
+\definecolor{schrift}{RGB}{188,67,40}
+\definecolor{item1}{rgb}{188,67,40}
+
+\SetSymbolFont{letters}{normal}{OML}{cmbr}{m}{it}
+\SetSymbolFont{operators}{normal}{OT1}{cmbr}{m}{n}
+\SetSymbolFont{symbols}{normal}{OMS}{cmbr}{m}{n}
+\DeclareMathAlphabet{\mathbf} {OT1}{cmbr}{bx}{n}
+\setkomafont{disposition}{\color{schrift}\bfseries}
+\allowdisplaybreaks
+\hfuzz 100pt
+\hbadness 10000
+%<-- Define Headlines in red - end -->
+
+%<--- NTT Style ends here --->
+
+\begin{document}
+
+%<-- Begin your document here with a title -->
+
+\begin{titlepage}
+\author{Marco Lampe}
+\title{SAP IoT Edge Gateway on Azure}
+\date{}
+\end{titlepage}
+\maketitle
+\thispagestyle{empty}
+\newpage
+%<-- Generate TOC and set pagecounter to arabic 1 - start -->
+
+\tableofcontents
+\pagenumbering{arabic}\setcounter{page}{1}
+
+%<-- Generate TOC and set pagecounter to arabic 1 - end -->
+
+%<-- Clear page and set pagecounter to 2 - start -->
+\clearpage
+\pagenumbering{arabic}\setcounter{page}{2}
+%<-- Clear page and set pagecounter to 2 - end -->
+
+%<----- Your Document starts right here below this comment -->
+
+\section{Einleitung}
+\blindtext
+\blindtext
+\blindtext
+\blindtext
+\subsection{Subsection}
+\blindtext
+\blindtext
+\subsubsection{Subsubsection}
+\blindtext
+\section{Quelltext}
+
+\begin{minted}[linenos=true,fontsize=\footnotesize,bgcolor=grund,numberblanklines=true,showspaces=false,breaklines=true]{bash}
+$ sudo apt update
+$ sudo apt install -y adoptopenjdk-8-hotspot
+\end{minted}
+
+\blindtext
+\blindtext
+\blindtext
+\blindtext
+\end{document}
